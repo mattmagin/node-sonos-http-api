@@ -15,7 +15,7 @@ function merge(target, source) {
 }
 
 var settings = {
-  port: 5005,
+  port: 3003,
   ip: "0.0.0.0",
   securePort: 5006,
   cacheDir: path.resolve(__dirname, 'cache'),
