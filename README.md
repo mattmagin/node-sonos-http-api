@@ -37,36 +37,36 @@ start the server by running
 
 Now you can control your system by invoking the following commands:
 
-	http://localhost:3003/zones
-	http://localhost:3003/lockvolumes
-	http://localhost:3003/unlockvolumes
-	http://localhost:3003/pauseall[/{timeout in minutes}]
-	http://localhost:3003/resumeall[/{timeout in minutes}]
-	http://localhost:3003/preset/{JSON preset}
-	http://localhost:3003/preset/{predefined preset name}
-	http://localhost:3003/reindex
-	http://localhost:3003/{room name}/sleep/{timeout in seconds or "off"}
-	http://localhost:3003/{room name}/sleep/{timeout in seconds or "off"}
-	http://localhost:3003/{room name}/{action}[/{parameter}]
+	http://localhost:5005/zones
+	http://localhost:5005/lockvolumes
+	http://localhost:5005/unlockvolumes
+	http://localhost:5005/pauseall[/{timeout in minutes}]
+	http://localhost:5005/resumeall[/{timeout in minutes}]
+	http://localhost:5005/preset/{JSON preset}
+	http://localhost:5005/preset/{predefined preset name}
+	http://localhost:5005/reindex
+	http://localhost:5005/{room name}/sleep/{timeout in seconds or "off"}
+	http://localhost:5005/{room name}/sleep/{timeout in seconds or "off"}
+	http://localhost:5005/{room name}/{action}[/{parameter}]
 
 Example:
 
-`http://localhost:3003/living room/volume/15`
+`http://localhost:5005/living room/volume/15`
 (will set volume for room Living Room to 15%)
 
-`http://localhost:3003/living room/volume/+1`
+`http://localhost:5005/living room/volume/+1`
 (will increase volume by 1%)
 
-`http://localhost:3003/living room/next`
+`http://localhost:5005/living room/next`
 (will skip to the next track on living room, unless it's not a coordinator)
 
-`http://localhost:3003/living room/pause`
+`http://localhost:5005/living room/pause`
 (will pause the living room)
 
-`http://localhost:3003/living room/favorite/mysuperplaylist`
+`http://localhost:5005/living room/favorite/mysuperplaylist`
 (will replace queue with the favorite called "mysuperplaylist")
 
-`http://localhost:3003/living room/repeat/on`
+`http://localhost:5005/living room/repeat/on`
 (will turn on repeat mode for group)
 
 
@@ -159,11 +159,11 @@ Obtain the current queue list from a specified player. The request will accept:
  - offset (optional, requires limit)
  - detailed flag (optional, include uri in response)
 
-	    http://localhost:3003/living room/queue
-	    http://localhost:3003/living room/queue/10 (only return top 10)
-	    http://localhost:3003/living room/queue/10/10 (return result 11-20)
-	    http://localhost:3003/living room/queue/detailed
-	    http://localhost:3003/living room/queue/10/detailed
+	    http://localhost:5005/living room/queue
+	    http://localhost:5005/living room/queue/10 (only return top 10)
+	    http://localhost:5005/living room/queue/10/10 (return result 11-20)
+	    http://localhost:5005/living room/queue/detailed
+	    http://localhost:5005/living room/queue/10/detailed
 
 Example queue response:
 ```
@@ -264,7 +264,7 @@ Example content:
 
 In the example, there is one preset called `all`, which you can apply by invoking:
 
-`http://localhost:3003/preset/all`
+`http://localhost:5005/preset/all`
 
 
 presets folder
@@ -336,7 +336,7 @@ Example:
 	    "key": "Your api for Bing speech API",
 	    "name": "ZiraRUS"
 	  },
-	  "port": 3003,
+	  "port": 5005,
 	  "ip": "0.0.0.0",
 	  "securePort": 5006,
 	  "https": {
@@ -379,7 +379,7 @@ Favorites
 
 It now has support for starting favorites. Simply invoke:
 
-`http://localhost:3003/living room/favorite/[favorite name]`
+`http://localhost:5005/living room/favorite/[favorite name]`
 
 and it will replace the queue with that favorite. Bear in mind that favorites may share name, which might give unpredictable behavior at the moment.
 
@@ -388,7 +388,7 @@ Playlist
 
 Playing a Sonos playlist is now supported. Invoke the following:
 
-`http://localhost:3003/living room/playlist/[playlist name]`
+`http://localhost:5005/living room/playlist/[playlist name]`
 
 and it will replace the queue with the playlist and starts playing.
 
@@ -1166,7 +1166,7 @@ There are [several client libraries available](https://en.wikipedia.org/wiki/Ser
 Using `curl` yields the following output for some volume changes:
 
 ```shell
-host:~ user$ curl localhost:3003/events
+host:~ user$ curl localhost:5005/events
 data: {"type":"volume-change","data":{"uuid":"RINCON_E2832F58D9074C45B","previousVolume":13,"newVolume":19,"roomName":"Office"}}
 
 data: {"type":"volume-change","data":{"uuid":"RINCON_E2832F58D9074C45B","previousVolume":19,"newVolume":25,"roomName":"Office"}}
@@ -1190,7 +1190,7 @@ If you are running this in an environment where you manually have to unblock tra
 ```
 TCP, port 3500 (Sonos events)
 UDP, port 1905 (Sonos initial discovery)
-TCP, port 3003 (if using the default api port)
+TCP, port 5005 (if using the default api port)
 TCP, port 5006 (if using https support, optional)
 ```
 ### Outgoing

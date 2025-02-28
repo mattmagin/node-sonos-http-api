@@ -1,4 +1,7 @@
 'use strict';
+
+require('dotenv').config();
+
 const fs = require('fs');
 const path = require('path');
 const logger = require('sonos-discovery/lib/helpers/logger');
@@ -14,10 +17,13 @@ function merge(target, source) {
   });
 }
 
+const { PORT, IP, SECURE_PORT } = process.env;
+
+
 var settings = {
-  port: 3003,
-  ip: "0.0.0.0",
-  securePort: 5006,
+  port: PORT || 5005,
+  ip: IP || "0.0.0.0",
+  securePort: SECURE_PORT || 5006,
   cacheDir: path.resolve(__dirname, 'cache'),
   webroot: path.resolve(__dirname, 'static'),
   presetDir: path.resolve(__dirname, 'presets'),
